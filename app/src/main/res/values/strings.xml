@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Elective_app</string>
+    <string name="college_email">College Email</string>
+    <string name="class_roll_no">Class Roll No</string>
+</resources>
