@@ -2,28 +2,12 @@
     <string name="app_name">Elective_app</string>
     <string name="college_email">College Email</string>
     <string name="class_roll_no">Class Roll No</string>
-    <string name="select1">Optional Elective</string>
-    <string name="select2">Professional Elective 1</string>
-    <string name="select3">Professional Elective 2</string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="select1">Open Electives</string>
+    <string name="select2">Professional Elective-1</string>
+    <string name="select3">Professional Elective-2</string>
     <string name="c1">Choice-1</string>
     <string name="c2">Choice-2</string>
     <string name="c3">Choice-3</string>
-    <string-array name="optional">
-        <item>DBMS</item>
-        <item>Computer Network</item>
-        <item>NLP</item>
-        <item>React JS</item>
-    </string-array>
-    <string-array name="professional1">
-        <item>Math</item>
-        <item>Science</item>
-        <item>SST</item>
-        <item>Computer</item>
-    </string-array>
-    <string-array name="professional2">
-        <item>AI</item>
-        <item>OOPS</item>
-        <item>Optical Fiber</item>
-        <item>Quantum Computing</item>
-    </string-array>
 </resources>
