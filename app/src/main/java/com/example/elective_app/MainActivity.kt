@@ -17,9 +17,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var mPassword: EditText
     lateinit var progressbar: ProgressBar
     lateinit var resetpassword: TextView
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         mEmail=findViewById(R.id.loginemail)
         mPassword=findViewById(R.id.loginpassword)
@@ -55,7 +58,6 @@ class MainActivity : AppCompatActivity() {
     private fun loginuser(){
         val email=findViewById<EditText>(R.id.loginemail).text.toString()
         val passwd=findViewById<EditText>(R.id.loginpassword).text.toString()
-
         if (TextUtils.isEmpty(email)){
             mEmail.setError("Email is Required")
             return

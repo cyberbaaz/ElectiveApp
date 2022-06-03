@@ -1,35 +1,42 @@
 package com.example.elective_app
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.view.GravityCompat
-import android.view.ContextMenu
-import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 
 class profile_user : AppCompatActivity() {
 
     lateinit var textInputLayout:TextInputLayout
-    lateinit var autoCompleteTextView:AutoCompleteTextView
-    lateinit var toggle:ActionBarDrawerToggle
+//    lateinit var name:TextView
     lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     lateinit var drawerLayout: DrawerLayout
     lateinit var navigationView: NavigationView
+    lateinit var nameTv:TextView
+
+//    lateinit var name:EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_user)
+
+//        name=findViewById(R.id.usrName)
+        nameTv=findViewById(R.id.welcome)
+//        if (TextUtils.isEmpty(name.text.toString())){
+        nameTv.text="Kshitij"
+//        }
+//        name=findViewById(R.id.welcome)
 
         drawerLayout = findViewById(R.id.drawerLayout)
         navigationView = findViewById(R.id.navigation)
