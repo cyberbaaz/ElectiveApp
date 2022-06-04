@@ -125,11 +125,11 @@ class AddStudent(var argRoll:String,var argDept:String) : AsyncTask<Void, Void, 
             // broken Java implementations
             Class.forName("com.mysql.jdbc.Driver")
             conn = DriverManager.getConnection(
-                "jdbc:mysql://192.168.0.3:3306/elective",
-                "sayantan", "sayantan"
+                "jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6497720",
+                "sql6497720", "Djd8v9mdmj"
             )
             stmt = conn.createStatement()
-            stmt.executeUpdate("insert into studentdetails values ('$roll',0,'$dept');")
+            stmt.executeUpdate("insert into StudentDetails values ('$roll',0,'$dept');")
 
             println("Results ------------------ $rs")
             // fetch cgpa and add update button
