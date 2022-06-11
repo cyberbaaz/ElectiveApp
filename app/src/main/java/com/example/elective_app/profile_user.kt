@@ -4,10 +4,9 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
+import android.widget.AdapterView.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -15,8 +14,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import java.sql.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class profile_user : AppCompatActivity() {
 
@@ -26,23 +26,29 @@ class profile_user : AppCompatActivity() {
     lateinit var drawerLayout: DrawerLayout
     lateinit var navigationView: NavigationView
     lateinit var nameTv:TextView
+    var array_chosen1= arrayOf<String>("","","")
+    var array_chosen2= arrayOf<String>("","")
+
+
 
 //    lateinit var name:EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_user)
+        val selections_arr = arrayListOf<String>()
+
 
 //        name=findViewById(R.id.usrName)
-        nameTv=findViewById(R.id.welcome)
+        nameTv = findViewById(R.id.welcome) as TextView
 //        if (TextUtils.isEmpty(name.text.toString())){
-        nameTv.text="Kshitij"
 //        }
 //        name=findViewById(R.id.welcome)
 
         drawerLayout = findViewById(R.id.drawerLayout)
         navigationView = findViewById(R.id.navigation)
-        actionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close)
+        actionBarDrawerToggle =
+            ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close)
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -55,7 +61,7 @@ class profile_user : AppCompatActivity() {
                     logout()
                     true
                 }
-                R.id.nav_item2-> {
+                R.id.nav_item2 -> {
                     Toast.makeText(this, "Edit Profile", Toast.LENGTH_SHORT).show()
                     true
                 }
@@ -72,44 +78,99 @@ class profile_user : AppCompatActivity() {
 
 
 
-        textInputLayout=findViewById(R.id.menu_drop)
+        textInputLayout = findViewById(R.id.menu_drop)
 
-        var open_electives= arrayListOf<String>("CSEN101","CSEN102","CSEN103","CSEN104")
-        var prof_elec1=arrayListOf<String>("ECEN101","MECH102","HMTS103","AEIE104")
+        val prof_elec1 = arrayListOf<String>("CSEN101", "CSEN102", "CSEN103", "CSEN104")
+        val prof_elec2 = arrayListOf<String>("ECEN101", "MECH102", "HMTS103", "AEIE104")
+        val sem = arrayListOf<Int>(3, 4, 5, 6, 7, 8)
 //        val prof_elec2=arrayListOf<String>("ECEN","MECH","HMTS","AEIE")
 
 
+        val arrayAdapter = ArrayAdapter(this, R.layout.list_item, prof_elec1)
+        val arrayAdapter1 = ArrayAdapter(this, R.layout.list_item, prof_elec2)
+        val sem_arradapter = ArrayAdapter(this, R.layout.list_item, sem)
 
-        var arrayAdapter = ArrayAdapter(this, R.layout.list_item, open_electives)
-        var arrayAdapter1 = ArrayAdapter(this, R.layout.list_item, prof_elec1)
-//        val arrayAdapter2 = ArrayAdapter(this, R.layout.list_item, prof_elec2)
 
         var electiveNames: ArrayList<String> = ArrayList()
         var subjects: ArrayList<ArrayList<String>> = ArrayList()
-        ConnectDB(electiveNames,subjects,open_electives,prof_elec1,arrayAdapter,arrayAdapter1).execute()
+        ConnectDB(
+            electiveNames,
+            subjects,
+            prof_elec1,
+            prof_elec2,
+            arrayAdapter,
+            arrayAdapter1
+        ).execute()
 
         // get reference to the autocomplete text view
-        var autocompleteTV = findViewById<AutoCompleteTextView>(R.id.open_drop1)
-        var autocompleteTV1 = findViewById<AutoCompleteTextView>(R.id.open_drop2)
-        var autocompleteTV2 = findViewById<AutoCompleteTextView>(R.id.open_drop3)
-        var autocompleteTV3 = findViewById<AutoCompleteTextView>(R.id.prof1_drop1)
-        var autocompleteTV4 = findViewById<AutoCompleteTextView>(R.id.prof1_drop2)
-        var autocompleteTV5 = findViewById<AutoCompleteTextView>(R.id.prof1_drop3)
-//        val autocompleteTV6 = findViewById<AutoCompleteTextView>(R.id.prof2_drop1)
+        val autocompleteTV = findViewById<AutoCompleteTextView>(R.id.open_drop1)
+        val autocompleteTV1 = findViewById<AutoCompleteTextView>(R.id.open_drop2)
+        val autocompleteTV2 = findViewById<AutoCompleteTextView>(R.id.open_drop3)
+        val autocompleteTV3 = findViewById<AutoCompleteTextView>(R.id.prof1_drop1)
+        val autocompleteTV4 = findViewById<AutoCompleteTextView>(R.id.prof1_drop2)
+//        val autocompleteTV5 = findViewById<AutoCompleteTextView>(R.id.prof1_drop3)
+        val sem_autocompleteTV = findViewById<AutoCompleteTextView>(R.id.sem_drop)
 //        val autocompleteTV7 = findViewById<AutoCompleteTextView>(R.id.prof2_drop2)
 //        val autocompleteTV8 = findViewById<AutoCompleteTextView>(R.id.prof2_drop3)
         // set adapter to the autocomplete tv to the arrayAdapter
+
         autocompleteTV.setAdapter(arrayAdapter)
         autocompleteTV1.setAdapter(arrayAdapter)
         autocompleteTV2.setAdapter(arrayAdapter)
         autocompleteTV3.setAdapter(arrayAdapter1)
         autocompleteTV4.setAdapter(arrayAdapter1)
-        autocompleteTV5.setAdapter(arrayAdapter1)
-//        autocompleteTV6.setAdapter(arrayAdapter2)
+//        autocompleteTV5.setAdapter(arrayAdapter1)
+        sem_autocompleteTV.setAdapter(sem_arradapter)
 //        autocompleteTV7.setAdapter(arrayAdapter2)
 //        autocompleteTV8.setAdapter(arrayAdapter2)
+
+        val choicebtn = findViewById<Button>(R.id.choice_submit)
+        choicebtn.setOnClickListener {
+            submitchoices()
+
+        }
+        sem_autocompleteTV.onItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                val curr_sem = sem.get(p2).toString()
+            }
+        }
+        autocompleteTV.onItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                array_chosen1[0] = prof_elec1.get(p2)
+            }
+        }
+        autocompleteTV1.onItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                array_chosen1[1] = prof_elec1.get(p2)
+            }
+        }
+        autocompleteTV2.onItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                array_chosen1[2] = prof_elec1.get(p2)
+            }
+        }
+        autocompleteTV3.onItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                array_chosen2[0] = prof_elec2.get(p2)
+            }
+        }
+        autocompleteTV4.onItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                array_chosen2[1] = prof_elec2.get(p2)
+            }
+        }
+
     }
 
+
+    fun submitchoices() {
+        val set1 = HashSet(Arrays.asList(*array_chosen1))
+        val set2 = HashSet(Arrays.asList(*array_chosen2))
+        if(set1.size!=3 || set2.size!=2){
+            Toast.makeText(this, "You have chosen one subject multiple times!!!\nPlease select all unique choices", Toast.LENGTH_SHORT).show()
+        }
+        println("inside func submit............."+ Arrays.toString(array_chosen2)+"........+++++++++++////////////************"+ Arrays.toString(array_chosen1))
+    }
 
     fun logout() {
         FirebaseAuth.getInstance().signOut() //logout
