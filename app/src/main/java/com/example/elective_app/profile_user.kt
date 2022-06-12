@@ -36,7 +36,7 @@ class profile_user : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_user)
-        val selections_arr = arrayListOf<String>()
+//        val selections_arr = arrayListOf<String>()
 
 
 //        name=findViewById(R.id.usrName)
@@ -168,6 +168,10 @@ class profile_user : AppCompatActivity() {
         val set2 = HashSet(Arrays.asList(*array_chosen2))
         if(set1.size!=3 || set2.size!=2){
             Toast.makeText(this, "You have chosen one subject multiple times!!!\nPlease select all unique choices", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            startActivity(Intent(this,details_profile::class.java))
+            finish()
         }
         println("inside func submit............."+ Arrays.toString(array_chosen2)+"........+++++++++++////////////************"+ Arrays.toString(array_chosen1))
     }
