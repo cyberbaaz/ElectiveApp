@@ -71,7 +71,7 @@ class Register : AppCompatActivity() {
             .addOnCompleteListener(MainActivity()){ task->
                 if (task.isSuccessful){
                     // Push data into db here
-                    AddStudent(roll,dept).execute()
+                    AddStudent(roll,dept,email).execute()
                     Toast.makeText(this,
                         "User added successfully",
                         Toast.LENGTH_SHORT).show()
@@ -108,9 +108,10 @@ class Register : AppCompatActivity() {
 }
 
 
-class AddStudent(var argRoll:String,var argDept:String) : AsyncTask<Void, Void, String>() {
+class AddStudent(var argRoll:String,var argDept:String,var argEmail:String) : AsyncTask<Void, Void, String>() {
     var roll:String = argRoll
     var dept:String = argDept
+    var email:String = argEmail
     override fun doInBackground(vararg params: Void?): String? {
         // ...
         var conn: Connection? = null
@@ -129,7 +130,7 @@ class AddStudent(var argRoll:String,var argDept:String) : AsyncTask<Void, Void, 
                 "sql6497720", "Djd8v9mdmj"
             )
             stmt = conn.createStatement()
-            stmt.executeUpdate("insert into StudentDetails values ('$roll',0,'$dept');")
+            stmt.executeUpdate("insert into StudentDetails values ('$roll',0,'$dept','${email}');")
 
             println("Results ------------------ $rs")
             // fetch cgpa and add update button

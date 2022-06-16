@@ -14,9 +14,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
+import java.math.BigInteger
 import java.sql.*
 import java.util.*
-import kotlin.collections.ArrayList
+
+var rollGlobal:String = "";
 
 class profile_user : AppCompatActivity() {
 
@@ -36,6 +38,25 @@ class profile_user : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_user)
+
+        var studemail:String = "";
+
+//        var mAuthListener = AuthStateListener { firebaseAuth ->
+            val user = FirebaseAuth.getInstance().currentUser
+            if (user != null) {
+                // User is signed in
+                System.out.println("onAuthStateChanged:signed_in:" + user.email)
+                studemail = user.email.toString();
+
+            } else {
+                // User is signed out
+                System.out.println("onAuthStateChanged:signed_out")
+            }
+            // [START_EXCLUDE]
+            //            updateUI(user)
+            // [END_EXCLUDE]
+//        }
+
 //        val selections_arr = arrayListOf<String>()
 
 
@@ -93,13 +114,16 @@ class profile_user : AppCompatActivity() {
 
         var electiveNames: ArrayList<String> = ArrayList()
         var subjects: ArrayList<ArrayList<String>> = ArrayList()
+        var studRoll: BigInteger = BigInteger("4545");
         ConnectDB(
             electiveNames,
             subjects,
             prof_elec1,
             prof_elec2,
             arrayAdapter,
-            arrayAdapter1
+            arrayAdapter1,
+            studemail,
+            studRoll
         ).execute()
 
         // get reference to the autocomplete text view
@@ -125,10 +149,19 @@ class profile_user : AppCompatActivity() {
 //        autocompleteTV8.setAdapter(arrayAdapter2)
 
         val choicebtn = findViewById<Button>(R.id.choice_submit)
-        choicebtn.setOnClickListener {
-            submitchoices()
+        setOnClick(choicebtn, studemail);
+//        choicebtn.setOnClickListener(object : View.OnClickListener {
+//            override fun onClick(v: View?) {
+                    System.out.println("Roll below setonclick "+studemail);
+                // Do whatever you want(str can be used here)
+//            }
+//        })
 
-        }
+//        choicebtn.setOnClickListener {
+//            System.out.println("Roll in onclick "+studRoll);
+//            submitchoices(studRoll);
+//
+//        }
         sem_autocompleteTV.onItemClickListener = object : OnItemClickListener {
             override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 val curr_sem = sem.get(p2).toString()
@@ -162,8 +195,17 @@ class profile_user : AppCompatActivity() {
 
     }
 
+    private fun setOnClick(btn: Button, email: String) {
+        btn.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                System.out.println("Email in on click2 is "+email)
+                // Do whatever you want(str can be used here)
+                submitchoices(email);
+            }
+        })
+    }
 
-    fun submitchoices() {
+    fun submitchoices( email:String) {
         val set1 = HashSet(Arrays.asList(*array_chosen1))
         val set2 = HashSet(Arrays.asList(*array_chosen2))
         if(set1.size!=3 || set2.size!=2){
@@ -173,7 +215,13 @@ class profile_user : AppCompatActivity() {
             startActivity(Intent(this,details_profile::class.java))
             finish()
         }
+        System.out.println("Email in submit "+email)
         println("inside func submit............."+ Arrays.toString(array_chosen2)+"........+++++++++++////////////************"+ Arrays.toString(array_chosen1))
+        InsertPref(
+            set1,
+            set2,
+            email
+        ).execute()
     }
 
     fun logout() {
@@ -201,13 +249,15 @@ class profile_user : AppCompatActivity() {
 }
 
 
-class ConnectDB(arglist: ArrayList<String>,argSubjects:ArrayList<ArrayList<String>>,argopen_electives:ArrayList<String>,argprof_elec1:ArrayList<String>,argarrayAdapter: ArrayAdapter<String>,argarrayAdapter1: ArrayAdapter<String>) : AsyncTask<Void, Void, String>() {
+class ConnectDB(arglist: ArrayList<String>,argSubjects:ArrayList<ArrayList<String>>,argopen_electives:ArrayList<String>,argprof_elec1:ArrayList<String>,argarrayAdapter: ArrayAdapter<String>,argarrayAdapter1: ArrayAdapter<String>, argEmail:String, var argRoll:BigInteger) : AsyncTask<Void, Void, String>() {
     var list: ArrayList<String> = arglist
     var subjectList: ArrayList<ArrayList<String>> = argSubjects
     var open_electives: ArrayList<String> = argopen_electives
     var prof_elec1: ArrayList<String> = argprof_elec1
     var arrayAdapter: ArrayAdapter<String> = argarrayAdapter
     var arrayAdapter1: ArrayAdapter<String> = argarrayAdapter1
+    var studemail = argEmail;
+    var studroll:BigInteger = argRoll;
 //    val prof_elec2: arrayListOf<String> = arg
     override fun doInBackground(vararg params: Void?): String? {
         // ...
@@ -245,6 +295,16 @@ class ConnectDB(arglist: ArrayList<String>,argSubjects:ArrayList<ArrayList<Strin
                     subjects.add(subjectsRes.getString(1))
                 }
                 subjectList.add(subjects)
+
+
+
+                var studentRoll: ResultSet? = null
+                System.out.println("Email "+studemail);
+                studentRoll = subjectqry.executeQuery("Select Roll from StudentDetails where Email='$studemail';");
+                while(studentRoll.next()) {
+                    argRoll = BigInteger(studentRoll.getString(1))
+                    System.out.println("Roll studroll "+ studroll);
+                }
 
             }
             println("Results ------------------ $records")
@@ -299,6 +359,10 @@ class ConnectDB(arglist: ArrayList<String>,argSubjects:ArrayList<ArrayList<Strin
                 i+=1
             }
         }
+        System.out.println(argRoll);
+//        rollGlobal = studroll;
+
+
         arrayAdapter.clear()
         arrayAdapter.addAll(subjectList[0])
 
@@ -312,6 +376,120 @@ class ConnectDB(arglist: ArrayList<String>,argSubjects:ArrayList<ArrayList<Strin
         arrayAdapter1.notifyDataSetChanged()
 
 
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class InsertPref(argset1:HashSet<String>,argset2:HashSet<String>,argEmail: String) : AsyncTask<Void, Void, String>() {
+
+    var set1 = argset1;
+    var set2 = argset2;
+//    var roll = sturoll;
+    var studemail = argEmail
+    override fun doInBackground(vararg params: Void?): String? {
+        // ...
+        var conn: Connection? = null
+
+
+        var stmt: Statement? = null
+        var rs: ResultSet? = null
+
+
+        try {
+            // The newInstance() call is a work around for some
+            // broken Java implementations
+            Class.forName("com.mysql.jdbc.Driver")
+            conn = DriverManager.getConnection(
+                "jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6497720",
+                "sql6497720", "Djd8v9mdmj"
+            )
+            var subjectqry: Statement? = null
+            subjectqry = conn.createStatement();
+            var roll:String = ""
+            var studentRoll: ResultSet? = null
+            System.out.println("Email "+studemail);
+            studentRoll = subjectqry.executeQuery("Select Roll from StudentDetails where Email='$studemail';");
+            while(studentRoll.next()) {
+                roll = studentRoll.getString(1)
+                System.out.println("Roll studroll "+ roll);
+            }
+
+
+            stmt = conn.createStatement()
+            var i =1;
+            for (s in set1) {
+                stmt.addBatch("Insert into PreferenceDetails values ('"+roll+"','"+s+"',5,2022,"+i+",0);");
+                i=i+1
+            }
+            i=1;
+            for (s in set2) {
+                stmt.addBatch("Insert into PreferenceDetails values ('"+roll+"','"+s+"',5,2022,"+i+",0);");
+                i=i+1
+            }
+
+            stmt.addBatch("Update StudentDetails set Submitted=1 where Roll='${roll}'");
+
+            stmt.executeBatch();
+
+            // fetch cgpa and add update button
+        } catch (ex: SQLException) {
+            // handle any errors
+            println("SQLException: " + ex.message)
+            println("SQLState: " + ex.sqlState)
+            println("VendorError: " + ex.errorCode)
+        } catch (ex: ClassNotFoundException) {
+            println("Class not found $ex")
+        } finally {
+            // it is a good idea to release
+            // resources in a finally{} block
+            // in reverse-order of their creation
+            // if they are no-longer needed
+            if (rs != null) {
+                try {
+                    rs.close()
+                } catch (sqlEx: SQLException) {
+                } // ignore
+                rs = null
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close()
+                } catch (sqlEx: SQLException) {
+                } // ignore
+                stmt = null
+            }
+        }
+        return null;
+    }
+
+    override fun onPreExecute() {
+        super.onPreExecute()
+        // ...
+    }
+
+    override fun onPostExecute(result: String?) {
+        super.onPostExecute(result)
+
+        System.out.println("Inserted maybe");
 
     }
 }
