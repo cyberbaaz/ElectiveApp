@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import java.math.BigInteger
 import java.sql.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 var rollGlobal:String = "";
 
@@ -125,6 +126,14 @@ class profile_user : AppCompatActivity() {
             studemail,
             studRoll
         ).execute()
+
+        var SubjectAssigned:ArrayList<String> = ArrayList()
+        var ElectiveName:ArrayList<String> = ArrayList()
+        getInfo(
+            studemail,
+            SubjectAssigned,
+            ElectiveName
+        ).execute();
 
         // get reference to the autocomplete text view
         val autocompleteTV = findViewById<AutoCompleteTextView>(R.id.open_drop1)
@@ -490,6 +499,92 @@ class InsertPref(argset1:HashSet<String>,argset2:HashSet<String>,argEmail: Strin
         super.onPostExecute(result)
 
         System.out.println("Inserted maybe");
+
+    }
+}
+
+
+
+class getInfo(argEmail: String, argSubjectAssigned:ArrayList<String>,argElectiveName:ArrayList<String>) : AsyncTask<Void, Void, String>() {
+    var studemail = argEmail
+    var studRoll:String = ""
+    var SubjectAssigned:ArrayList<String> = argSubjectAssigned
+    var ElectiveName:ArrayList<String> = argElectiveName
+    //    val prof_elec2: arrayListOf<String> = arg
+    override fun doInBackground(vararg params: Void?): String? {
+        // ...
+        var conn: Connection? = null
+
+
+        var stmt: Statement? = null
+        var rs: ResultSet? = null
+
+
+        try {
+            // The newInstance() call is a work around for some
+            // broken Java implementations
+            Class.forName("com.mysql.jdbc.Driver")
+            conn = DriverManager.getConnection(
+                "jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6497720",
+                "sql6497720", "Djd8v9mdmj"
+            )
+            stmt = conn.createStatement()
+            rs = stmt.executeQuery("Select Roll from StudentDetails where Email='${studemail}';");
+            var records = ""
+            while (rs.next()) {
+                studRoll = rs.getString(1)
+                System.out.println("Roll studroll "+ studRoll);
+
+            }
+
+            System.out.println("Assigned Subjects ......... ")
+            rs = stmt.executeQuery("Select Roll, p.Semester, p.PCode, ElectiveName from PreferenceDetails p inner join ElectiveSubjects e on p.PCode = e.PCode where Confirmed=1 and Roll='${studRoll}';");
+            while (rs.next()) {
+                System.out.println(rs.getString(3) + " " + rs.getString(4))
+                SubjectAssigned.add(rs.getString(3))
+                ElectiveName.add(rs.getString(4))
+            }
+            // fetch cgpa and add update button
+        } catch (ex: SQLException) {
+            // handle any errors
+            println("SQLException: " + ex.message)
+            println("SQLState: " + ex.sqlState)
+            println("VendorError: " + ex.errorCode)
+        } catch (ex: ClassNotFoundException) {
+            println("Class not found $ex")
+        } finally {
+            // it is a good idea to release
+            // resources in a finally{} block
+            // in reverse-order of their creation
+            // if they are no-longer needed
+            if (rs != null) {
+                try {
+                    rs.close()
+                } catch (sqlEx: SQLException) {
+                } // ignore
+                rs = null
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close()
+                } catch (sqlEx: SQLException) {
+                } // ignore
+                stmt = null
+            }
+        }
+        return null;
+    }
+
+    override fun onPreExecute() {
+        super.onPreExecute()
+        // ...
+    }
+
+    override fun onPostExecute(result: String?) {
+        super.onPostExecute(result)
+
+
+        // Update UI here ...
 
     }
 }
