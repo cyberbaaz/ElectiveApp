@@ -6,7 +6,7 @@ getInfo(
 
 
 
-class getInfo(argEmail: String, argSubjectAssigned:ArrayList<String>,argElectiveName:ArrayList<String>) : AsyncTask<Void, Void, String>() {
+class getInfo(argEmail: String) : AsyncTask<Void, Void, String>() {
     var studemail = argEmail
     var studRoll:String = ""
     var SubjectAssigned:ArrayList<String> = ArrayList()
