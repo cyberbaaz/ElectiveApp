@@ -7,7 +7,9 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profile_user">
+    android:fitsSystemWindows="true"
+    tools:context=".profile_user"
+    tools:openDrawer="start">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -44,7 +46,7 @@
             android:id="@+id/welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hi User"
+            android:text="Welcome, User"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -90,6 +92,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="216dp"
             android:layout_height="56dp"
@@ -215,26 +218,40 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.827" />
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        <EditText
+            android:id="@+id/editTextTextPersonName"
             android:layout_width="150dp"
-            android:layout_height="57dp"
-            android:layout_margin="16dp"
-            android:hint="@string/sem"
+            android:layout_height="46dp"
+            android:ems="10"
+            android:hint="Enter CGPA..."
+            android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.28"
+            app:layout_constraintHorizontal_bias="0.272"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.85">
+            app:layout_constraintVertical_bias="0.827" />
 
-            <AutoCompleteTextView
-                android:id="@+id/sem_drop"
-                android:layout_width="150dp"
-                android:layout_height="51dp"
-                android:inputType="none" />
-        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="57dp"-->
+<!--            android:layout_margin="16dp"-->
+<!--            android:hint="@string/sem"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.28"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.85">-->
+
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/sem_drop"-->
+<!--                android:layout_width="150dp"-->
+<!--                android:layout_height="51dp"-->
+<!--                android:inputType="none" />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
 <!--        <com.google.android.material.textfield.TextInputLayout-->
 <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->

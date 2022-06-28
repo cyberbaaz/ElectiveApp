@@ -1,5 +1,6 @@
 package com.example.elective_app
 
+import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
@@ -7,6 +8,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.*
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.MainThread
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -31,8 +34,6 @@ class profile_user : AppCompatActivity() {
     lateinit var nameTv:TextView
     var array_chosen1= arrayOf<String>("","","")
     var array_chosen2= arrayOf<String>("","")
-
-
 
 //    lateinit var name:EditText
 
@@ -85,9 +86,19 @@ class profile_user : AppCompatActivity() {
                 }
                 R.id.nav_item2 -> {
                     Toast.makeText(this, "Edit Profile", Toast.LENGTH_SHORT).show()
+                    val Intent= Intent(this,details_profile::class.java)
+                    startActivity(Intent)
                     true
                 }
                 R.id.nav_item3 -> {
+                    Toast.makeText(this, "Appeal", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_item4 -> {
+                    Toast.makeText(this, "Appeal", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_item5 -> {
                     Toast.makeText(this, "Appeal", Toast.LENGTH_SHORT).show()
                     true
                 }
@@ -98,6 +109,14 @@ class profile_user : AppCompatActivity() {
             }
         }
 
+//        override fun onBackPressed() {
+//            if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+//                drawerLayout.closeDrawer(GravityCompat.START)
+//            }
+//            else{
+//                super.onBackPressed()
+//            }
+//        }
 
 
         textInputLayout = findViewById(R.id.menu_drop)
@@ -129,11 +148,6 @@ class profile_user : AppCompatActivity() {
 
         var SubjectAssigned:ArrayList<String> = ArrayList()
         var ElectiveName:ArrayList<String> = ArrayList()
-        getInfo(
-            studemail,
-            SubjectAssigned,
-            ElectiveName
-        ).execute();
 
         // get reference to the autocomplete text view
         val autocompleteTV = findViewById<AutoCompleteTextView>(R.id.open_drop1)
@@ -142,7 +156,7 @@ class profile_user : AppCompatActivity() {
         val autocompleteTV3 = findViewById<AutoCompleteTextView>(R.id.prof1_drop1)
         val autocompleteTV4 = findViewById<AutoCompleteTextView>(R.id.prof1_drop2)
 //        val autocompleteTV5 = findViewById<AutoCompleteTextView>(R.id.prof1_drop3)
-        val sem_autocompleteTV = findViewById<AutoCompleteTextView>(R.id.sem_drop)
+//        val sem_autocompleteTV = findViewById<AutoCompleteTextView>(R.id.sem_drop)
 //        val autocompleteTV7 = findViewById<AutoCompleteTextView>(R.id.prof2_drop2)
 //        val autocompleteTV8 = findViewById<AutoCompleteTextView>(R.id.prof2_drop3)
         // set adapter to the autocomplete tv to the arrayAdapter
@@ -153,7 +167,7 @@ class profile_user : AppCompatActivity() {
         autocompleteTV3.setAdapter(arrayAdapter1)
         autocompleteTV4.setAdapter(arrayAdapter1)
 //        autocompleteTV5.setAdapter(arrayAdapter1)
-        sem_autocompleteTV.setAdapter(sem_arradapter)
+//        sem_autocompleteTV.setAdapter(sem_arradapter)
 //        autocompleteTV7.setAdapter(arrayAdapter2)
 //        autocompleteTV8.setAdapter(arrayAdapter2)
 
@@ -171,11 +185,11 @@ class profile_user : AppCompatActivity() {
 //            submitchoices(studRoll);
 //
 //        }
-        sem_autocompleteTV.onItemClickListener = object : OnItemClickListener {
-            override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                val curr_sem = sem.get(p2).toString()
-            }
-        }
+//        sem_autocompleteTV.onItemClickListener = object : OnItemClickListener {
+//            override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//                val curr_sem = sem.get(p2).toString()
+//            }
+//        }
         autocompleteTV.onItemClickListener = object : OnItemClickListener {
             override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 array_chosen1[0] = prof_elec1.get(p2)
@@ -505,86 +519,3 @@ class InsertPref(argset1:HashSet<String>,argset2:HashSet<String>,argEmail: Strin
 
 
 
-class getInfo(argEmail: String, argSubjectAssigned:ArrayList<String>,argElectiveName:ArrayList<String>) : AsyncTask<Void, Void, String>() {
-    var studemail = argEmail
-    var studRoll:String = ""
-    var SubjectAssigned:ArrayList<String> = argSubjectAssigned
-    var ElectiveName:ArrayList<String> = argElectiveName
-    //    val prof_elec2: arrayListOf<String> = arg
-    override fun doInBackground(vararg params: Void?): String? {
-        // ...
-        var conn: Connection? = null
-
-
-        var stmt: Statement? = null
-        var rs: ResultSet? = null
-
-
-        try {
-            // The newInstance() call is a work around for some
-            // broken Java implementations
-            Class.forName("com.mysql.jdbc.Driver")
-            conn = DriverManager.getConnection(
-                "jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6497720",
-                "sql6497720", "Djd8v9mdmj"
-            )
-            stmt = conn.createStatement()
-            rs = stmt.executeQuery("Select Roll from StudentDetails where Email='${studemail}';");
-            var records = ""
-            while (rs.next()) {
-                studRoll = rs.getString(1)
-                System.out.println("Roll studroll "+ studRoll);
-
-            }
-
-            System.out.println("Assigned Subjects ......... ")
-            rs = stmt.executeQuery("Select Roll, p.Semester, p.PCode, ElectiveName from PreferenceDetails p inner join ElectiveSubjects e on p.PCode = e.PCode where Confirmed=1 and Roll='${studRoll}';");
-            while (rs.next()) {
-                System.out.println(rs.getString(3) + " " + rs.getString(4))
-                SubjectAssigned.add(rs.getString(3))
-                ElectiveName.add(rs.getString(4))
-            }
-            // fetch cgpa and add update button
-        } catch (ex: SQLException) {
-            // handle any errors
-            println("SQLException: " + ex.message)
-            println("SQLState: " + ex.sqlState)
-            println("VendorError: " + ex.errorCode)
-        } catch (ex: ClassNotFoundException) {
-            println("Class not found $ex")
-        } finally {
-            // it is a good idea to release
-            // resources in a finally{} block
-            // in reverse-order of their creation
-            // if they are no-longer needed
-            if (rs != null) {
-                try {
-                    rs.close()
-                } catch (sqlEx: SQLException) {
-                } // ignore
-                rs = null
-            }
-            if (stmt != null) {
-                try {
-                    stmt.close()
-                } catch (sqlEx: SQLException) {
-                } // ignore
-                stmt = null
-            }
-        }
-        return null;
-    }
-
-    override fun onPreExecute() {
-        super.onPreExecute()
-        // ...
-    }
-
-    override fun onPostExecute(result: String?) {
-        super.onPostExecute(result)
-
-
-        // Update UI here ...
-
-    }
-}

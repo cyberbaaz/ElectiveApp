@@ -3,16 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Elective_app/app/src/main/res/layout/activity_details_profile.xml" value="0.259375" />
+        <entry key="..\:/Elective_app/app/src/main/res/drawable/ic_appeal.xml" value="0.1765" />
+        <entry key="..\:/Elective_app/app/src/main/res/drawable/login_background.xml" value="0.1765" />
+        <entry key="..\:/Elective_app/app/src/main/res/drawable/logo_background.xml" value="0.1765" />
+        <entry key="..\:/Elective_app/app/src/main/res/layout/activity_details_profile.xml" value="0.176" />
         <entry key="..\:/Elective_app/app/src/main/res/layout/activity_main.xml" value="0.176" />
-        <entry key="..\:/Elective_app/app/src/main/res/layout/activity_profile_user.xml" value="0.2" />
+        <entry key="..\:/Elective_app/app/src/main/res/layout/activity_profile_user.xml" value="0.176" />
         <entry key="..\:/Elective_app/app/src/main/res/layout/activity_register.xml" value="0.18931159420289856" />
         <entry key="..\:/Elective_app/app/src/main/res/layout/activity_reset_passwd.xml" value="0.12222222222222222" />
         <entry key="..\:/Elective_app/app/src/main/res/layout/activity_resetpassword.xml" value="0.1" />
         <entry key="..\:/Elective_app/app/src/main/res/layout/list_item.xml" value="0.1" />
-        <entry key="..\:/Elective_app/app/src/main/res/layout/nav_header.xml" value="0.1" />
+        <entry key="..\:/Elective_app/app/src/main/res/layout/nav_header.xml" value="0.264" />
         <entry key="..\:/Elective_app/app/src/main/res/menu/main_menu.xml" value="0.1" />
-        <entry key="..\:/Elective_app/app/src/main/res/menu/nav_drawer_menu.xml" value="0.1" />
+        <entry key="..\:/Elective_app/app/src/main/res/menu/nav_drawer_menu.xml" value="0.264" />
         <entry key="..\:/Elective_app/app/src/main/res/mipmap-anydpi-v26/resetpage.xml" value="0.2645" />
         <entry key="..\:/Users/hp/Documents/FYP/ElectiveApp/app/src/main/res/layout/activity_profile_user.xml" value="0.264" />
         <entry key="..\:/gitfiles/ElectiveApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.174" />
