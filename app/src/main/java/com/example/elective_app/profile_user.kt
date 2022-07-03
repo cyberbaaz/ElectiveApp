@@ -1,6 +1,5 @@
 package com.example.elective_app
 
-import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
@@ -8,8 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.*
-import androidx.activity.OnBackPressedCallback
-import androidx.annotation.MainThread
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -32,6 +29,7 @@ class profile_user : AppCompatActivity() {
     lateinit var drawerLayout: DrawerLayout
     lateinit var navigationView: NavigationView
     lateinit var nameTv:TextView
+    lateinit var cgpa: EditText
     var array_chosen1= arrayOf<String>("","","")
     var array_chosen2= arrayOf<String>("","")
 
@@ -67,6 +65,7 @@ class profile_user : AppCompatActivity() {
 //        if (TextUtils.isEmpty(name.text.toString())){
 //        }
 //        name=findViewById(R.id.welcome)
+        cgpa=findViewById(R.id.mycgpa)
 
         drawerLayout = findViewById(R.id.drawerLayout)
         navigationView = findViewById(R.id.navigation)
@@ -123,13 +122,12 @@ class profile_user : AppCompatActivity() {
 
         val prof_elec1 = arrayListOf<String>("CSEN101", "CSEN102", "CSEN103", "CSEN104")
         val prof_elec2 = arrayListOf<String>("ECEN101", "MECH102", "HMTS103", "AEIE104")
-        val sem = arrayListOf<Int>(3, 4, 5, 6, 7, 8)
 //        val prof_elec2=arrayListOf<String>("ECEN","MECH","HMTS","AEIE")
 
 
         val arrayAdapter = ArrayAdapter(this, R.layout.list_item, prof_elec1)
         val arrayAdapter1 = ArrayAdapter(this, R.layout.list_item, prof_elec2)
-        val sem_arradapter = ArrayAdapter(this, R.layout.list_item, sem)
+//        val sem_arradapter = ArrayAdapter(this, R.layout.list_item, sem)
 
 
         var electiveNames: ArrayList<String> = ArrayList()
@@ -172,7 +170,7 @@ class profile_user : AppCompatActivity() {
 //        autocompleteTV8.setAdapter(arrayAdapter2)
 
         val choicebtn = findViewById<Button>(R.id.choice_submit)
-        setOnClick(choicebtn, studemail);
+        setOnClick(choicebtn, studemail,cgpa);
 //        choicebtn.setOnClickListener(object : View.OnClickListener {
 //            override fun onClick(v: View?) {
                     System.out.println("Roll below setonclick "+studemail);
@@ -218,11 +216,13 @@ class profile_user : AppCompatActivity() {
 
     }
 
-    private fun setOnClick(btn: Button, email: String) {
+    private fun setOnClick(btn: Button, email: String, cgpa: EditText) {
         btn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 System.out.println("Email in on click2 is "+email)
                 // Do whatever you want(str can be used here)
+                val mcgpa=cgpa.text.toString()
+                println("=======================->"+mcgpa+"<-=================")
                 submitchoices(email);
             }
         })
@@ -238,7 +238,7 @@ class profile_user : AppCompatActivity() {
             startActivity(Intent(this,details_profile::class.java))
             finish()
         }
-        System.out.println("Email in submit "+email)
+//        System.out.println("Email in submit "+email)
         println("inside func submit............."+ Arrays.toString(array_chosen2)+"........+++++++++++////////////************"+ Arrays.toString(array_chosen1))
         InsertPref(
             set1,
@@ -402,24 +402,6 @@ class ConnectDB(arglist: ArrayList<String>,argSubjects:ArrayList<ArrayList<Strin
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 class InsertPref(argset1:HashSet<String>,argset2:HashSet<String>,argEmail: String) : AsyncTask<Void, Void, String>() {

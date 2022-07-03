@@ -122,13 +122,15 @@ class getInfo(argEmail: String, view_prof1: TextView, view_prof2: TextView, view
     @Deprecated("Deprecated in Java")
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
-        SubjectAssigned.add("CSE")
-        SubjectAssigned.add("ECE")
+//        SubjectAssigned.add("CSE")
+//        SubjectAssigned.add("ECE")
 
-        println(SubjectAssigned)
-        prof1.text=SubjectAssigned[0]
-        prof2.text=SubjectAssigned[1]
+//        println(SubjectAssigned)
         head.text="Hi, "+studemail
+        if(SubjectAssigned.size>=2){
+            prof1.text=SubjectAssigned[0]
+            prof2.text=SubjectAssigned[1]
+        }
         // Update UI here ...
 
     }
