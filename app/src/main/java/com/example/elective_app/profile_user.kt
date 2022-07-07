@@ -223,12 +223,12 @@ class profile_user : AppCompatActivity() {
                 // Do whatever you want(str can be used here)
                 val mcgpa=cgpa.text.toString()
                 println("=======================->"+mcgpa+"<-=================")
-                submitchoices(email);
+                submitchoices(email,cgpa);
             }
         })
     }
 
-    fun submitchoices( email:String) {
+    fun submitchoices( email:String, cgpa: EditText) {
         val set1 = HashSet(Arrays.asList(*array_chosen1))
         val set2 = HashSet(Arrays.asList(*array_chosen2))
         if(set1.size!=3 || set2.size!=2){
@@ -243,7 +243,8 @@ class profile_user : AppCompatActivity() {
         InsertPref(
             set1,
             set2,
-            email
+            email,
+            cgpa.text.toString(),
         ).execute()
     }
 
@@ -404,10 +405,11 @@ class ConnectDB(arglist: ArrayList<String>,argSubjects:ArrayList<ArrayList<Strin
 }
 
 
-class InsertPref(argset1:HashSet<String>,argset2:HashSet<String>,argEmail: String) : AsyncTask<Void, Void, String>() {
+class InsertPref(argset1:HashSet<String>,argset2:HashSet<String>,argEmail: String, argCgpa: String) : AsyncTask<Void, Void, String>() {
 
     var set1 = argset1;
     var set2 = argset2;
+    var cgpa = argCgpa;
 //    var roll = sturoll;
     var studemail = argEmail
     override fun doInBackground(vararg params: Void?): String? {
@@ -452,6 +454,7 @@ class InsertPref(argset1:HashSet<String>,argset2:HashSet<String>,argEmail: Strin
             }
 
             stmt.addBatch("Update StudentDetails set Submitted=1 where Roll='${roll}'");
+            stmt.addBatch("update StudentDetails set AvgCGPA=${cgpa.toDouble()} where Email='${studemail}';")
 
             stmt.executeBatch();
 
