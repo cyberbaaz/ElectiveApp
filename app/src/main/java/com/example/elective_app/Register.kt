@@ -130,7 +130,7 @@ class AddStudent(var argRoll:String,var argDept:String,var argEmail:String) : As
                 "sql6497720", "Djd8v9mdmj"
             )
             stmt = conn.createStatement()
-            stmt.executeUpdate("insert into StudentDetails values ('$roll',0,'$dept','${email}');")
+            stmt.executeUpdate("insert into StudentDetails values ('$roll',0,'$dept','${email}',0);")
 
             println("Results ------------------ $rs")
             // fetch cgpa and add update button
