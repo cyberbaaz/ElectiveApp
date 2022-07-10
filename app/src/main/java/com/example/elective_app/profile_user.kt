@@ -282,6 +282,7 @@ class ConnectDB(arglist: ArrayList<String>,argSubjects:ArrayList<ArrayList<Strin
     var arrayAdapter1: ArrayAdapter<String> = argarrayAdapter1
     var studemail = argEmail;
     var studroll:BigInteger = argRoll;
+    var submitted:Int = 0;
 //    val prof_elec2: arrayListOf<String> = arg
     override fun doInBackground(vararg params: Void?): String? {
         // ...
@@ -324,10 +325,12 @@ class ConnectDB(arglist: ArrayList<String>,argSubjects:ArrayList<ArrayList<Strin
 
                 var studentRoll: ResultSet? = null
                 System.out.println("Email "+studemail);
-                studentRoll = subjectqry.executeQuery("Select Roll from StudentDetails where Email='$studemail';");
+                studentRoll = subjectqry.executeQuery("Select Roll, Submitted from StudentDetails where Email='$studemail';");
                 while(studentRoll.next()) {
                     argRoll = BigInteger(studentRoll.getString(1))
+                    submitted = studentRoll.getInt(2);
                     System.out.println("Roll studroll "+ studroll);
+                    System.out.println("Submitted "+ submitted);
                 }
 
             }
