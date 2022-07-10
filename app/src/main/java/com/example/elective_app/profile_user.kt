@@ -3,6 +3,7 @@ package com.example.elective_app
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
@@ -32,6 +33,8 @@ class profile_user : AppCompatActivity() {
     lateinit var cgpa: EditText
     var array_chosen1= arrayOf<String>("","","")
     var array_chosen2= arrayOf<String>("","")
+    var chosen: Boolean = false
+
 
 //    lateinit var name:EditText
 
@@ -219,18 +222,29 @@ class profile_user : AppCompatActivity() {
     private fun setOnClick(btn: Button, email: String, cgpa: EditText) {
         btn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                System.out.println("Email in on click2 is "+email)
+//                System.out.println("Email in on click2 is "+email)
                 // Do whatever you want(str can be used here)
                 val mcgpa=cgpa.text.toString()
-                println("=======================->"+mcgpa+"<-=================")
-                submitchoices(email,cgpa);
-            }
-        })
+                if (mcgpa==""){
+                    cgpa.setError("CGPA is Required")
+                    return
+                }
+//                println("===============  xxx"+ConnectDB.Companion.submitted+" xxx =============================")
+                if(ConnectDB.Companion.submitted==1){
+                    Toast.makeText(this@profile_user, "You have already submitted choices", Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    submitchoices(email,cgpa)
+                }
+                } }
+        )
     }
 
     fun submitchoices( email:String, cgpa: EditText) {
         val set1 = HashSet(Arrays.asList(*array_chosen1))
         val set2 = HashSet(Arrays.asList(*array_chosen2))
+
+
         if(set1.size!=3 || set2.size!=2){
             Toast.makeText(this, "You have chosen one subject multiple times!!!\nPlease select all unique choices", Toast.LENGTH_SHORT).show()
         }
@@ -239,7 +253,7 @@ class profile_user : AppCompatActivity() {
             finish()
         }
 //        System.out.println("Email in submit "+email)
-        println("inside func submit............."+ Arrays.toString(array_chosen2)+"........+++++++++++////////////************"+ Arrays.toString(array_chosen1))
+//        println("inside func submit............."+ Arrays.toString(array_chosen2)+"........+++++++++++////////////************"+ Arrays.toString(array_chosen1))
         InsertPref(
             set1,
             set2,
@@ -282,7 +296,9 @@ class ConnectDB(arglist: ArrayList<String>,argSubjects:ArrayList<ArrayList<Strin
     var arrayAdapter1: ArrayAdapter<String> = argarrayAdapter1
     var studemail = argEmail;
     var studroll:BigInteger = argRoll;
-    var submitted:Int = 0;
+    companion object {
+        var submitted:Int = 0
+    }
 //    val prof_elec2: arrayListOf<String> = arg
     override fun doInBackground(vararg params: Void?): String? {
         // ...

@@ -1,132 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fillViewport="true">
+    tools:context=".Register">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="210sp"
+        android:layout_height="117sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.353"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.026"
+        app:srcCompat="@mipmap/logo_foreground" />
+
+    <EditText
+        android:id="@+id/usrName"
+        android:layout_width="310sp"
+        android:layout_height="49sp"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.312" />
+
+    <EditText
+        android:id="@+id/usrEmail"
+        android:layout_width="310sp"
+        android:layout_height="44sp"
+        android:hint="@string/college_email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.393" />
+
+    <EditText
+        android:id="@+id/rollNumber"
+        android:layout_width="310sp"
+        android:layout_height="47sp"
+        android:hint="@string/class_roll_no"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.476" />
+
+
+
+    <EditText
+        android:id="@+id/editTextTextPersonName2"
+        android:layout_width="310sp"
+        android:layout_height="43sp"
+        android:ems="10"
+        android:hint="Dept."
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.555" />
+
+
+    <Button
+        android:id="@+id/btncrt"
+        android:layout_width="160sp"
+        android:layout_height="49sp"
+        android:text="Register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.163"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.768" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="233sp"
+        android:layout_height="38sp"
+        android:text="Already Have An Account?"
+        android:textAlignment="viewStart"
+        android:textColor="#673AB7"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.185"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.911" />
+
+    <Button
+        android:id="@+id/usrLogin"
+        android:layout_width="85sp"
+        android:layout_height="44sp"
+        android:text="Login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.895"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.911" />
+
+    <EditText
+        android:id="@+id/usrPassword"
+        android:layout_width="310sp"
+        android:layout_height="43sp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="numberPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.632" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:context=".Register">
-
-        <EditText
-            android:id="@+id/usrEmail"
-            android:layout_width="310dp"
-            android:layout_height="44dp"
-            android:ems="10"
-            android:hint="@string/college_email"
-            android:inputType="textEmailAddress"
-            android:translationX="30dp"
-            android:translationY="270dp"
-            tools:layout_editor_absoluteX="65dp"
-            tools:layout_editor_absoluteY="270dp" />
-
-        <EditText
-            android:id="@+id/rollNumber"
-            android:layout_width="310dp"
-            android:layout_height="47dp"
-            android:ems="10"
-            android:hint="@string/class_roll_no"
-            android:inputType="number"
-            android:translationX="30dp"
-            android:translationY="320dp"
-            tools:layout_editor_absoluteX="30dp"
-            tools:layout_editor_absoluteY="320dp" />
-
-        <EditText
-            android:id="@+id/usrName"
-            android:layout_width="310dp"
-            android:layout_height="49dp"
-            android:ems="10"
-            android:hint="Name"
-            android:inputType="textPersonName"
-            android:translationX="30dp"
-            android:translationY="220dp"
-            tools:layout_editor_absoluteX="30dp"
-            tools:layout_editor_absoluteY="220dp" />
-
-        <EditText
-            android:id="@+id/editTextTextPersonName2"
-            android:layout_width="310dp"
-            android:layout_height="43dp"
-            android:ems="10"
-            android:hint="Dept."
-            android:inputType="textPersonName"
-            android:translationX="30dp"
-            android:translationY="370dp"
-            tools:layout_editor_absoluteX="30dp"
-            tools:layout_editor_absoluteY="420dp" />
-
-        <Button
-            android:id="@+id/btncrt"
-            android:layout_width="186dp"
-            android:layout_height="67dp"
-            android:text="Register"
-            android:translationX="85dp"
-            android:translationY="480dp"
-            tools:layout_editor_absoluteX="85dp"
-            tools:layout_editor_absoluteY="530dp" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="306dp"
-            android:layout_height="170dp"
-            android:translationX="40dp"
-            android:translationY="20dp"
-            app:srcCompat="@mipmap/logo_foreground"
-            tools:layout_editor_absoluteX="40dp"
-            tools:layout_editor_absoluteY="20dp" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="233dp"
-            android:layout_height="38dp"
-            android:text="Already Have An Account?"
-            android:textAlignment="viewStart"
-            android:textColor="#673AB7"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:translationX="20dp"
-            android:translationY="600dp"
-            tools:layout_editor_absoluteX="20dp"
-            tools:layout_editor_absoluteY="650dp" />
-
-        <Button
-            android:id="@+id/usrLogin"
-            android:layout_width="85dp"
-            android:layout_height="44dp"
-            android:text="Login"
-            android:translationX="260dp"
-            android:translationY="595dp"
-            tools:layout_editor_absoluteX="260dp"
-            tools:layout_editor_absoluteY="645dp" />
-
-        <EditText
-            android:id="@+id/usrPassword"
-            android:layout_width="310dp"
-            android:layout_height="43dp"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="numberPassword"
-            android:translationX="30dp"
-            android:translationY="420dp"
-            tools:layout_editor_absoluteX="30dp"
-            tools:layout_editor_absoluteY="470dp" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:foregroundTint="#FF5722"
-            android:progressBackgroundTint="#FDFBFB"
-            android:progressTint="#FF5722"
-            android:translationX="295dp"
-            android:translationY="535dp"
-            android:visibility="invisible" />
-
-    </RelativeLayout>
-</ScrollView>
+        android:foregroundTint="#FF5722"
+        android:progressBackgroundTint="#FDFBFB"
+        android:progressTint="#FF5722"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.732"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.767" />
+</androidx.constraintlayout.widget.ConstraintLayout>

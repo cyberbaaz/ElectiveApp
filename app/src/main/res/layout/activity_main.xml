@@ -1,98 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:ignore="MissingClass">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="295sp"
+        android:layout_height="182sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.36"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.031"
+        app:srcCompat="@mipmap/login_foreground" />
+
+
+    <EditText
+        android:id="@+id/loginemail"
+        android:layout_width="320sp"
+        android:layout_height="49sp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.417"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.36" />
+
+    <EditText
+        android:id="@+id/loginpassword"
+        android:layout_width="320sp"
+        android:layout_height="49sp"
+        android:hint="Password"
+        android:inputType="numberPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.417"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.478" />
+
+    <TextView
+        android:id="@+id/forgotpasswd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/aclonica"
+        android:text="Forgot Password ?"
+        android:textAllCaps="false"
+        android:textColor="#AEA6A3"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.826"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.573" />
 
     <Button
         android:id="@+id/loginbtn"
-        android:layout_width="165dp"
-        android:layout_height="68dp"
+        android:layout_width="165sp"
+        android:layout_height="65sp"
         android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.694"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintVertical_bias="0.694" />
 
-    <EditText
-        android:id="@+id/loginemail"
-        android:layout_width="339dp"
-        android:layout_height="63dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:translationX="30dp"
-        android:translationY="260dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="234dp" />
-
-    <EditText
-        android:id="@+id/loginpassword"
-        android:layout_width="339dp"
-        android:layout_height="63dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="numberPassword"
-        android:translationX="30dp"
-        android:translationY="340dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="-4dp" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="300dp"
-        android:layout_height="220dp"
-        android:translationX="50dp"
-        android:translationY="25dp"
-        app:srcCompat="@mipmap/login_foreground"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="440dp"
-        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/registerbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
         android:text="Register"
-        android:translationX="270dp"
-        android:translationY="550dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01999998"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="275dp" />
+        app:layout_constraintVertical_bias="0.837" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="249dp"
-        android:layout_height="46dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/alata"
-        android:text="Still Don't Have an Account ?"
+        android:text="Still Don't Have an Account ? "
         android:textColor="#050505"
-        android:textSize="19sp"
         android:textStyle="bold|italic"
-        android:translationX="10dp"
-        android:translationY="560dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01999998"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintVertical_bias="0.823" />
 
     <ProgressBar
         android:id="@+id/loginprogressBar"
@@ -109,21 +117,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.704" />
 
-    <TextView
-        android:id="@+id/forgotpasswd"
-        android:layout_width="175dp"
-        android:layout_height="42dp"
-        android:fontFamily="@font/aclonica"
-        android:text="Forgot Password ?"
-        android:textAllCaps="false"
-        android:textColor="#AEA6A3"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.611" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
