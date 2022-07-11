@@ -15,9 +15,9 @@
         <activity
             android:name=".Reset_passwd"
             android:exported="false" />
-        <activity
-            android:name=".resetpassword"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".resetpassword"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".profile_user"
             android:exported="false" />

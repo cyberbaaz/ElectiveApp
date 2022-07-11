@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Elective_app</string>
+    <string name="app_name">Elective</string>
     <string name="college_email">College Email</string>
     <string name="class_roll_no">Class Roll No</string>
     <string name="nav_open">Open</string>
@@ -11,4 +11,6 @@
     <string name="c2">Choice-2</string>
     <string name="c3">Choice-3</string>
     <string name="sem">Semester</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

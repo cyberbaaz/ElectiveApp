@@ -10,8 +10,10 @@ import android.widget.*
 import android.widget.AdapterView.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -33,7 +35,6 @@ class profile_user : AppCompatActivity() {
     lateinit var cgpa: EditText
     var array_chosen1= arrayOf<String>("","","")
     var array_chosen2= arrayOf<String>("","")
-    var chosen: Boolean = false
 
 
 //    lateinit var name:EditText
@@ -87,21 +88,24 @@ class profile_user : AppCompatActivity() {
                     true
                 }
                 R.id.nav_item2 -> {
-                    Toast.makeText(this, "Edit Profile", Toast.LENGTH_SHORT).show()
+                    supportActionBar?.title="Profile"
                     val Intent= Intent(this,details_profile::class.java)
                     startActivity(Intent)
                     true
                 }
                 R.id.nav_item3 -> {
-                    Toast.makeText(this, "Appeal", Toast.LENGTH_SHORT).show()
+                    supportActionBar?.title="Choices"
+                    Toast.makeText(this, "Submit Choices", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.nav_item4 -> {
+                    supportActionBar?.title="Appeal"
                     Toast.makeText(this, "Appeal", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.nav_item5 -> {
-                    Toast.makeText(this, "Appeal", Toast.LENGTH_SHORT).show()
+                    supportActionBar?.title="Support"
+                    Toast.makeText(this, "Support", Toast.LENGTH_SHORT).show()
                     true
                 }
                 else -> {
@@ -110,6 +114,8 @@ class profile_user : AppCompatActivity() {
 
             }
         }
+
+
 
 //        override fun onBackPressed() {
 //            if(drawerLayout.isDrawerOpen(GravityCompat.START)){
